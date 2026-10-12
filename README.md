@@ -2,6 +2,8 @@
 
 Web app (PWA) per gestire le task da PC e da iPhone, con i dati sincronizzati tra i dispositivi.
 
+**Indirizzo dell'app:** https://personaltaskmanager-five.vercel.app
+
 - **Frontend:** React + Vite, installabile su iPhone dalla schermata Home
 - **Backend:** Supabase (database, login, storage dei loghi), regione UE (Francoforte)
 - **Hosting:** Vercel (piano gratuito Hobby), con aggiornamento automatico a ogni modifica su GitHub
@@ -32,12 +34,12 @@ La chiave *publishable/anon* è pubblica per definizione: i dati sono protetti d
 2. Clicca **Add New… → Project**, scegli il repository `Personal-Task-Manager` e premi **Import**.
 3. Lascia le impostazioni proposte (Framework: **Vite**) e premi **Deploy**.
 4. Dopo circa un minuto ottieni l'indirizzo dell'app, del tipo `https://personal-task-manager-xxx.vercel.app`.
-5. Vai su **Settings → Git → Production Branch** e indica il branch da pubblicare (di solito `main`).
+5. Vai su **Settings → Environments → Production → Branch Tracking** e indica il branch da pubblicare: `claude/task-management-pwa-kf7jco`.
 
 ---
 
 ## 2. Installare l'app sull'iPhone
-1. Apri **Safari** sull'iPhone e vai all'indirizzo Vercel dell'app. Deve essere Safari, non Chrome.
+1. Apri **Safari** sull'iPhone e vai a **https://personaltaskmanager-five.vercel.app**. Deve essere Safari, non Chrome.
 2. Tocca il pulsante **Condividi** (il quadrato con la freccia verso l'alto).
 3. Scorri e tocca **Aggiungi alla schermata Home**, poi **Aggiungi**.
 4. Apri l'app dall'icona sulla Home: si apre a schermo intero, senza la barra di Safari.
