@@ -2,7 +2,6 @@ import { useMemo, useState } from 'react'
 import { useData } from '../data'
 import { go } from '../lib/router'
 import { todayLabel } from '../lib/date'
-import { useShowCompleted } from '../lib/useShowCompleted'
 import AreaLogo from '../components/AreaLogo'
 import Composer from '../components/Composer'
 import EditTaskSheet from '../components/EditTaskSheet'
@@ -13,14 +12,10 @@ import { IconCheck, IconChevron, IconGear } from '../components/Icons'
 
 export default function Home({ areasById }) {
   const { areas, tasks } = useData()
-  const [showCompleted, setShowCompleted] = useShowCompleted()
   const [editing, setEditing] = useState(null)
   const [settings, setSettings] = useState(false)
 
-  const visible = useMemo(
-    () => tasks.filter((t) => showCompleted || !t.completed_at),
-    [tasks, showCompleted]
-  )
+  const visible = useMemo(() => tasks.filter((t) => !t.completed_at), [tasks])
   const doneCount = tasks.filter((t) => t.completed_at).length
   const openCount = (areaId) => tasks.filter((t) => t.area_id === areaId && !t.completed_at).length
 
@@ -65,13 +60,10 @@ export default function Home({ areasById }) {
       <ListControls
         title="Tutte le task"
         visible={visible}
-        showCompleted={showCompleted}
-        setShowCompleted={setShowCompleted}
       />
       <TaskList
         tasks={visible}
         areasById={areasById}
-        showCompleted={showCompleted}
         onOpen={setEditing}
       />
 

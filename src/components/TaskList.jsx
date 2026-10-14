@@ -61,7 +61,6 @@ function SortableCard({ task, disabled, lastDragEnd, onOpen, ...props }) {
 export default function TaskList({
   tasks,
   areasById,
-  showCompleted,
   onOpen,
   onDropOnSubcategory,
   selecting = false,
@@ -127,7 +126,6 @@ export default function TaskList({
               area={areasById[t.area_id]}
               disabled={selecting}
               lastDragEnd={lastDragEnd}
-              showCompleted={showCompleted}
               selecting={selecting}
               selected={selected?.has(t.id)}
               onToggleSelect={onToggleSelect}

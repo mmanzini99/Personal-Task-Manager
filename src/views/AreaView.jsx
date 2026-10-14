@@ -2,7 +2,6 @@ import { useMemo, useState } from 'react'
 import { useDroppable } from '@dnd-kit/core'
 import { useData } from '../data'
 import { go } from '../lib/router'
-import { useShowCompleted } from '../lib/useShowCompleted'
 import AreaLogo from '../components/AreaLogo'
 import Composer from '../components/Composer'
 import EditTaskSheet from '../components/EditTaskSheet'
@@ -93,7 +92,6 @@ function MoveToSheet({ subs, count, onMove, onClose }) {
 
 export default function AreaView({ area, areasById }) {
   const { tasks, subcategories, moveToSubcategory } = useData()
-  const [showCompleted, setShowCompleted] = useShowCompleted()
   const [editing, setEditing] = useState(null)
   const [newSub, setNewSub] = useState(false)
   const [selecting, setSelecting] = useState(false)
@@ -111,9 +109,9 @@ export default function AreaView({ area, areasById }) {
         (t) =>
           t.area_id === area.id &&
           (!withSubs || !t.subcategory_id) &&
-          (showCompleted || !t.completed_at)
+          !t.completed_at
       ),
-    [tasks, area.id, withSubs, showCompleted]
+    [tasks, area.id, withSubs]
   )
   const openInSub = (subId) => tasks.filter((t) => t.subcategory_id === subId && !t.completed_at).length
 
@@ -149,7 +147,6 @@ export default function AreaView({ area, areasById }) {
       <TaskList
         tasks={visible}
         areasById={areasById}
-        showCompleted={showCompleted}
         onOpen={setEditing}
         onDropOnSubcategory={withSubs ? (taskId, subId) => moveToSubcategory([taskId], subId) : undefined}
         selecting={selecting}
@@ -161,8 +158,6 @@ export default function AreaView({ area, areasById }) {
             <ListControls
               title={withSubs ? 'Task' : null}
               visible={visible}
-              showCompleted={showCompleted}
-              setShowCompleted={setShowCompleted}
               extra={
                 withSubs &&
                 !selecting && (

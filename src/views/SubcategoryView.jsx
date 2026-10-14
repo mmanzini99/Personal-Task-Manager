@@ -1,7 +1,6 @@
 import { useMemo, useState } from 'react'
 import { useData } from '../data'
 import { go } from '../lib/router'
-import { useShowCompleted } from '../lib/useShowCompleted'
 import Composer from '../components/Composer'
 import EditTaskSheet from '../components/EditTaskSheet'
 import ListControls from '../components/ListControls'
@@ -12,12 +11,11 @@ import { ViewHeader } from './AreaView'
 
 export default function SubcategoryView({ area, sub, areasById }) {
   const { tasks, deleteSubcategory } = useData()
-  const [showCompleted, setShowCompleted] = useShowCompleted()
   const [editing, setEditing] = useState(null)
   const [confirmDelete, setConfirmDelete] = useState(false)
 
   const all = useMemo(() => tasks.filter((t) => t.subcategory_id === sub.id), [tasks, sub.id])
-  const visible = useMemo(() => all.filter((t) => showCompleted || !t.completed_at), [all, showCompleted])
+  const visible = useMemo(() => all.filter((t) => !t.completed_at), [all])
   const back = `/area/${area.id}`
 
   return (
@@ -32,8 +30,8 @@ export default function SubcategoryView({ area, sub, areasById }) {
           </button>
         }
       />
-      <ListControls visible={visible} showCompleted={showCompleted} setShowCompleted={setShowCompleted} />
-      <TaskList tasks={visible} areasById={areasById} showCompleted={showCompleted} onOpen={setEditing} />
+      <ListControls visible={visible} />
+      <TaskList tasks={visible} areasById={areasById} onOpen={setEditing} />
       <Composer key={sub.id} fixedArea={area} subcategoryId={sub.id} />
 
       {editing && <EditTaskSheet task={editing} onClose={() => setEditing(null)} />}

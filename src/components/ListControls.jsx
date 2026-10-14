@@ -3,7 +3,7 @@ import { useData } from '../data'
 import { Confirm } from './Sheet'
 import { IconSort } from './Icons'
 
-export default function ListControls({ title, visible, showCompleted, setShowCompleted, extra }) {
+export default function ListControls({ title, visible, extra }) {
   const { sortByDue } = useData()
   const [confirming, setConfirming] = useState(false)
   return (
@@ -13,15 +13,6 @@ export default function ListControls({ title, visible, showCompleted, setShowCom
         <button className="chip" onClick={() => setConfirming(true)} disabled={visible.length < 2}>
           <IconSort width={18} height={18} /> Ordina per scadenza
         </button>
-        <label className="switch">
-          <input
-            type="checkbox"
-            checked={showCompleted}
-            onChange={(e) => setShowCompleted(e.target.checked)}
-          />
-          <span className="switch-track" aria-hidden="true" />
-          Mostra completate
-        </label>
         {extra}
       </div>
       {confirming && (
