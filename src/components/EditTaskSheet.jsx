@@ -3,6 +3,7 @@ import { useData } from '../data'
 import { formatDate, parseDate } from '../lib/date'
 import AreaLogo from './AreaLogo'
 import DateInput from './DateInput'
+import DateShortcuts from './DateShortcuts'
 import Sheet, { Confirm } from './Sheet'
 
 export default function EditTaskSheet({ task, onClose }) {
@@ -90,10 +91,13 @@ export default function EditTaskSheet({ task, onClose }) {
             </select>
           </label>
         )}
-        <label className="field">
+        <div className="field">
           <span>Data</span>
-          <DateInput value={date} onChange={setDate} invalid={dateInvalid} className="date-input--wide" />
-        </label>
+          <div className="date-row">
+            <DateInput value={date} onChange={setDate} invalid={dateInvalid} className="date-input--wide" />
+            <DateShortcuts value={date} onPick={setDate} />
+          </div>
+        </div>
         <label className="field">
           <span>Note</span>
           <textarea rows={4} value={notes} onChange={(e) => setNotes(e.target.value)} />

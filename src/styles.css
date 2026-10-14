@@ -914,3 +914,93 @@ p {
     width: 40px;
   }
 }
+
+/* ---------- Task svolte ---------- */
+
+.page--no-composer {
+  padding-bottom: calc(env(safe-area-inset-bottom) + 32px);
+}
+
+.done-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  min-height: 52px;
+  margin: -12px 0 24px;
+  padding: 0 14px;
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  text-align: left;
+}
+
+.done-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--text);
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.done-name {
+  flex: 1;
+  font-weight: 500;
+}
+
+.done-row > svg:last-child {
+  color: var(--muted);
+}
+
+/* ---------- Scorciatoie data ---------- */
+
+.date-shortcuts {
+  display: flex;
+  justify-content: flex-end;
+  gap: 6px;
+  padding: 2px 0 4px;
+}
+
+.date-chip {
+  min-height: 36px;
+  padding: 0 14px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.05);
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.date-chip.is-selected {
+  background: var(--text);
+  color: #fff;
+}
+
+.date-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.date-row .date-input--wide {
+  flex: 1;
+  min-width: 0;
+  width: auto;
+  height: 44px;
+  padding: 0 12px;
+  border-radius: 12px;
+}
+
+.date-row .date-shortcuts {
+  padding: 0;
+}
+
+.date-row .date-chip {
+  min-height: 44px;
+}
+
+.composer .date-input::placeholder {
+  font-size: 14px;
+}

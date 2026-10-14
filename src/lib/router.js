@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-// Rotte: #/  ·  #/area/<id>  ·  #/area/<id>/sub/<id>
+// Rotte: #/  ·  #/svolte  ·  #/area/<id>  ·  #/area/<id>/sub/<id>
 export function useRoute() {
   const read = () => window.location.hash.replace(/^#\/?/, '').split('/').filter(Boolean)
   const [parts, setParts] = useState(read)
@@ -13,6 +13,7 @@ export function useRoute() {
     return () => window.removeEventListener('hashchange', onHash)
   }, [])
   return {
+    done: parts[0] === 'svolte',
     areaId: parts[0] === 'area' ? parts[1] : null,
     subId: parts[2] === 'sub' ? parts[3] : null
   }

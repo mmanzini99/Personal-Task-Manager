@@ -38,3 +38,12 @@ export function todayLabel() {
   const s = new Date().toLocaleDateString('it-IT', { weekday: 'long', day: 'numeric', month: 'long' })
   return s.charAt(0).toUpperCase() + s.slice(1)
 }
+
+// Data di oggi + `offset` giorni, già nel formato gg/mm/aaaa.
+export function relativeDate(offset) {
+  const d = new Date()
+  d.setDate(d.getDate() + offset)
+  const dd = String(d.getDate()).padStart(2, '0')
+  const mm = String(d.getMonth() + 1).padStart(2, '0')
+  return `${dd}/${mm}/${d.getFullYear()}`
+}

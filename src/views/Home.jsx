@@ -9,7 +9,7 @@ import EditTaskSheet from '../components/EditTaskSheet'
 import ListControls from '../components/ListControls'
 import SettingsSheet from '../components/SettingsSheet'
 import TaskList from '../components/TaskList'
-import { IconGear } from '../components/Icons'
+import { IconCheck, IconChevron, IconGear } from '../components/Icons'
 
 export default function Home({ areasById }) {
   const { areas, tasks } = useData()
@@ -21,6 +21,7 @@ export default function Home({ areasById }) {
     () => tasks.filter((t) => showCompleted || !t.completed_at),
     [tasks, showCompleted]
   )
+  const doneCount = tasks.filter((t) => t.completed_at).length
   const openCount = (areaId) => tasks.filter((t) => t.area_id === areaId && !t.completed_at).length
 
   return (
@@ -51,6 +52,15 @@ export default function Home({ areasById }) {
           )
         })}
       </div>
+
+      <button className="done-row" onClick={() => go('/svolte')}>
+        <span className="done-icon">
+          <IconCheck width={16} height={16} strokeWidth={3} />
+        </span>
+        <span className="done-name">Task svolte</span>
+        <span className="sub-count">{doneCount}</span>
+        <IconChevron width={18} height={18} />
+      </button>
 
       <ListControls
         title="Tutte le task"

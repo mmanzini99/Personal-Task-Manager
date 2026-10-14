@@ -3,6 +3,7 @@ import { useData } from '../data'
 import { parseDate } from '../lib/date'
 import AreaLogo from './AreaLogo'
 import DateInput from './DateInput'
+import DateShortcuts from './DateShortcuts'
 import { IconNote } from './Icons'
 
 // Box di inserimento fisso in fondo alla schermata.
@@ -16,7 +17,9 @@ export default function Composer({ fixedArea, subcategoryId = null }) {
   const [notesOpen, setNotesOpen] = useState(false)
   const [message, setMessage] = useState(null)
   const [areaMissing, setAreaMissing] = useState(false)
+  const [dateFocused, setDateFocused] = useState(false)
   const boxRef = useRef(null)
+  const titleRef = useRef(null)
 
   const dateCheck = parseDate(date)
   const dateComplete = date.replace(/\D/g, '').length === 8
@@ -79,6 +82,7 @@ export default function Composer({ fixedArea, subcategoryId = null }) {
     <div className="composer-wrap" ref={boxRef}>
       <div className="composer">
         <input
+          ref={titleRef}
           className="composer-title"
           type="text"
           placeholder="Scrivi e premi Invio…"
@@ -125,6 +129,8 @@ export default function Composer({ fixedArea, subcategoryId = null }) {
               if (message?.field === 'date') setMessage(null)
             }}
             invalid={dateInvalid}
+            onFocus={() => setDateFocused(true)}
+            onBlur={() => setDateFocused(false)}
             onKeyDown={(e) => e.key === 'Enter' && (e.preventDefault(), submit())}
           />
           <button
@@ -137,6 +143,16 @@ export default function Composer({ fixedArea, subcategoryId = null }) {
             <IconNote />
           </button>
         </div>
+        {dateFocused && (
+          <DateShortcuts
+            value={date}
+            onPick={(v) => {
+              setDate(v)
+              if (message?.field === 'date') setMessage(null)
+              titleRef.current.focus()
+            }}
+          />
+        )}
         {notesOpen && (
           <textarea
             className="composer-notes"

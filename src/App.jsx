@@ -6,10 +6,11 @@ import Login from './Login'
 import Home from './views/Home'
 import AreaView from './views/AreaView'
 import SubcategoryView from './views/SubcategoryView'
+import DoneView from './views/DoneView'
 
 function Screens() {
   const { areas, subcategories, loaded, error, clearError } = useData()
-  const { areaId, subId } = useRoute()
+  const { done, areaId, subId } = useRoute()
   const areasById = useMemo(() => Object.fromEntries(areas.map((a) => [a.id, a])), [areas])
 
   useEffect(() => {
@@ -28,6 +29,7 @@ function Screens() {
 
   let screen = null
   if (!loaded) screen = error ? null : <div className="splash" />
+  else if (done) screen = <DoneView areasById={areasById} />
   else if (area && sub) screen = <SubcategoryView area={area} sub={sub} areasById={areasById} />
   else if (area && !subId) screen = <AreaView area={area} areasById={areasById} />
   else if (!areaId) screen = <Home areasById={areasById} />
